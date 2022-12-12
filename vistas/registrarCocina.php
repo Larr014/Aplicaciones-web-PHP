@@ -10,7 +10,7 @@
     <?php
     require_once("menu/menu.php");
     ?>
-    <form method="POST" action="controladorRegistroCocina">
+    <form method="POST" action="../controlador/controladorRegistroCocina.php">
         <input type="text" name="nombre" id="nombre" placeholder="Nombre"><br/>
         <input type="text" name="marca" id="marca" placeholder="Marca"><br/>
         <input type="number" name="platillos" id="platillos" placeholder="Numero de platillos"><br/>

@@ -20,10 +20,10 @@
         $op = $_GET['o'];
         switch ($op) {
             case '1':
-                header('Location: ../vistas/registrarUsuario.php');
+                header('Location: ../vistas/registrarCocina.php');
                 break;
             case '2':
-                header('Location: ../vistas/mostrarUsuario.php');
+                header('Location: ../vistas/mostrarCocinas.php');
                 break;
             default:
                 header('Location: ../vistas/error403.php');
