@@ -7,8 +7,8 @@ class Db{
     function open(){
         global $serverName,$databaseName,$userName,$password;
         try{
-            $conexion = new PDO("mysql:host=$serverName;dbname=$databaseName", $userName, $password);
-            $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->conexion = new PDO("mysql:host=$serverName;dbname=$databaseName", $userName, $password);
+            $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //echo "Conexion exitosa";
         }catch(PDOException $e){
             echo "Conexion Fallida";
@@ -16,26 +16,52 @@ class Db{
         
     }
     function close(){
-        $conexion = null;
+        $this->conexion = null;
     }
     //Vamos a recibir un objeto de tipo cocina
     function crearCocina($cocina){
-        this->open();
+        $nombre = $cocina->getNombre();
+        $marca = $cocina->getMarca();
+        $nPlatos = $cocina->getNPlatos();
+        
+        $this->open();
         try{
-            $stmt = $conexion->prepare("INSERT INTO Cocina (nombre, marca, nPlatos)
-            VALUES (:nombre, :marca, :nPlatos)");
-            $stmt->bindParam(':nombre', $cocina->getNombre());
-            $stmt->bindParam(':marca', $cocina->getMarca());
-            $stmt->bindParam(':nPlatos', $cocina->getNPlatos());
+            $sql = "INSERT INTO Cocina (nombre, marca, nPlatos)
+            VALUES (:nombre, :marca, :nPlatos)";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->bindParam(':nombre', $nombre);
+            $stmt->bindParam(':marca', $marca);
+            $stmt->bindParam(':nPlatos', $nPlatos);
             $stmt->execute();
     
         }catch(PDOException $e){
             echo "Fallo al registrar";
+            echo $e->getMessage();
         }
-        this->close();
+        $this->close();
 
     }  
     
+    function mostrarCocinas(){
+        try{
+            $this->open();
+            $sql = "SELECT marca,idCocina FROM Cocina";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->execute();
+            //Indica como vas a recuperar de la BD
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $result = $stmt->fetchAll();  
+            return $result;    
+        }catch(PDOException $e){
 
+        }
+    }
 }
 ?>
+
+
+
+
+
+
+

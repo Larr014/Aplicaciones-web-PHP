@@ -1,3 +1,9 @@
+<?php
+    require_once('../modelo/Db.php');
+    $db = new Db();
+    $resultado = $db->mostrarCocinas();
+    var_dump($resultado);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +13,6 @@
     <title>Document</title>
 </head>
 <body>
-    <p>Usuarios</p>
+    
 </body>
 </html>
