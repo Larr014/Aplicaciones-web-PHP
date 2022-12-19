@@ -45,7 +45,7 @@ class Db{
     function mostrarCocinas(){
         try{
             $this->open();
-            $sql = "SELECT marca,idCocina FROM Cocina";
+            $sql = "SELECT * FROM Cocina";
             $stmt = $this->conexion->prepare($sql);
             $stmt->execute();
             //Indica como vas a recuperar de la BD

@@ -2,7 +2,7 @@
     require_once('../modelo/Db.php');
     $db = new Db();
     $resultado = $db->mostrarCocinas();
-    var_dump($resultado);
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +13,26 @@
     <title>Document</title>
 </head>
 <body>
-    
+   <table>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Marca</th>
+        <th>Platillos</th>
+        <th>Editar</th>
+        <th>Eliminar</th>
+    </tr>
+    <?php
+        foreach ($resultado as $fila) {
+            echo "<tr>";
+            echo "<td>".$fila['idCocina']."</td>";
+            echo "<td>".$fila['nombre']."</td>";
+            echo "<td>".$fila['marca']."</td>";
+            echo "<td>".$fila['nPlatos']."</td>";
+            echo "<td><a href='../controlador/controladorAccionCocina.php?a=1&id=".$fila["idCocina"]."' >Editar</a></td>";
+            echo "</tr>";
+        }
+    ?>
+   </table> 
 </body>
 </html>
