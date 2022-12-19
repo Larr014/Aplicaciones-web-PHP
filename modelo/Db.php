@@ -56,6 +56,62 @@ class Db{
 
         }
     }
+    function obtenerCocina($id){
+        try{
+            $this->open();
+            $sql = "SELECT * FROM Cocina WHERE idCocina=:idCocina";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->bindParam(':idCocina', $id);
+            $stmt->execute();
+            //Indica como vas a recuperar de la BD
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $result = $stmt->fetchAll();  
+            return $result;    
+        }catch(PDOException $e){
+
+        }
+    }
+    function actualizarCocina($cocina){
+        $id = $cocina->getId();
+        $nombre = $cocina->getNombre();
+        $marca = $cocina->getMarca();
+        $nPlatos = $cocina->getNPlatos();
+        
+        $this->open();
+        try{
+            $sql = "UPDATE Cocina SET nombre=:nombre, marca=:marca, nPlatos=:nPlatos WHERE idCocina=:idCocina";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->bindParam(':nombre', $nombre);
+            $stmt->bindParam(':marca', $marca);
+            $stmt->bindParam(':nPlatos', $nPlatos);
+            $stmt->bindParam(':idCocina', $id);
+            
+            $stmt->execute();
+    
+        }catch(PDOException $e){
+            echo "Fallo al registrar";
+            echo $e->getMessage();
+        }
+        $this->close();
+
+    }  
+    function eliminarCocina($id){
+        
+        $this->open();
+        try{
+            $sql = "DELETE FROM Cocina WHERE idCocina=:idCocina";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->bindParam(':idCocina', $id);
+            
+            $stmt->execute();
+    
+        }catch(PDOException $e){
+            echo "Fallo al registrar";
+            echo $e->getMessage();
+        }
+        $this->close();
+
+    }
 }
 ?>
 

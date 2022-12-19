@@ -30,6 +30,7 @@
             echo "<td>".$fila['marca']."</td>";
             echo "<td>".$fila['nPlatos']."</td>";
             echo "<td><a href='../controlador/controladorAccionCocina.php?a=1&id=".$fila["idCocina"]."' >Editar</a></td>";
+            echo "<td><a href='../controlador/controladorAccionCocina.php?a=2&id=".$fila["idCocina"]."' >Eliminar</a></td>";
             echo "</tr>";
         }
     ?>
