@@ -1,3 +1,12 @@
+<?php
+    session_start();
+    if(isset($_SESSION['tipoUsuario'])){
+
+    }else{
+        header('Location: ../vistas/login.php');
+    
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

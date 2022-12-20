@@ -112,6 +112,22 @@ class Db{
         $this->close();
 
     }
+    function login($usuario,$clave){
+        try{
+            $this->open();
+            $sql = "SELECT * FROM Usuario WHERE usuario=:usuario AND pass=:pass";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->bindParam(':usuario', $usuario);
+            $stmt->bindParam(':pass', $clave);
+            $stmt->execute();
+            //Indica como vas a recuperar de la BD
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $result = $stmt->fetchAll();  
+            return $result;    
+        }catch(PDOException $e){
+            return null;
+        }        
+    }
 }
 ?>
 
